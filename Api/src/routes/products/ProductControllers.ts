@@ -26,13 +26,19 @@ export async function AddProduct(req: Request, res: Response) {
   }
 };
 
-export async function ChangeProduct(req: Request, res: Response) {
+export async function UpdateProduct(req: Request, res: Response) {
   const { id } = req.params
+  const updates = req.body
+  console.log(updates)
   try {
     const [product] = await db
-      .select()
-      .from(ProductsTable)
-      .where(eq(ProductsTable.id, Number(id)));
+      .update(ProductsTable).set(updates)
+      .where(eq(ProductsTable.id, Number(id))).returning();
+    if (product)
+      res.status(200).json({ product, message: "updated successfully" })
+    else {
+      res.status(404).json({message: "product not found"})
+    }
   } catch (e) {
     res.status(500).send('An error occured')
   }
@@ -52,7 +58,7 @@ export async function DeleteProduct(req: Request, res: Response) {
     const [product] = await db.delete(ProductsTable)
       .where(eq(ProductsTable.id, Number(id))).returning();
     if (product)
-      res.status(203)
+      res.status(204)
     else
       res.status(404).json({message: "Product not found"})
   } catch (e) {
