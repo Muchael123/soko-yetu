@@ -1,0 +1,21 @@
+{
+  "name": "snack-yako",
+  "version": "1.0.0",
+  "description": "Api endpoints for snack-yako ecommerce app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --import=tsx --env-file=.env --watch src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
