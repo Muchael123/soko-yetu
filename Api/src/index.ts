@@ -15,5 +15,5 @@ app.get('/', (req, res) => {
 app.use('/products', productsRoutes);
     
 app.listen(port, () => {
-    console.log('App running on ports', port)
+    console.log('App Running on port', port)
 });
