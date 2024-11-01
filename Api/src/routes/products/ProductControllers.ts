@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { db } from "../../db/index";
-import { ProductsTable } from "../../db/ProductSchema";
+import { CreateProductSchema, ProductsTable } from "@/db/ProductSchema";
 import { eq } from "drizzle-orm";
-
+import _ from 'lodash'
 
 export async function ListProducts(req: Request, res: Response) {
   try {
@@ -19,10 +19,11 @@ export async function ListProducts(req: Request, res: Response) {
 
 export async function AddProduct(req: Request, res: Response) {
   try {
-  const [product] = await db.insert(ProductsTable).values(req.body).returning();
+    console.log(req.cleanBody)
+  const [product] = await db.insert(ProductsTable).values(req.cleanBody).returning();
   res.status(201).json(product);
   } catch (e) {
-    res.status(500).json({message: "An error occured"})
+    res.status(500).json({e,message: "An error occured"})
   }
 };
 
@@ -55,13 +56,14 @@ export async function DeleteProduct(req: Request, res: Response) {
   
   const { id } = req.params
   try {
+    console.log('Deleting...')
     const [product] = await db.delete(ProductsTable)
       .where(eq(ProductsTable.id, Number(id))).returning();
     if (product)
-      res.status(204)
+      res.status(204).json({product, message: "Deleted successfully"})
     else
       res.status(404).json({message: "Product not found"})
   } catch (e) {
-    res.status(500).send("An error occured");
+    res.status(500).json({ e, message: "An error occured"});
   }
 };
