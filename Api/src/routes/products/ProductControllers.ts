@@ -18,6 +18,7 @@ export async function ListProducts(req: Request, res: Response) {
 };
 
 export async function AddProduct(req: Request, res: Response) {
+  console.log(req.userId)
   try {
     console.log(req.cleanBody)
   const [product] = await db.insert(ProductsTable).values(req.cleanBody).returning();
