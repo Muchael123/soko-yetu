@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { db } from "../../db/index";
-import { CreateProductSchema, ProductsTable } from "@/db/ProductSchema";
+import { db } from "../../db/index.js";
+import { CreateProductSchema, ProductsTable } from "../../db/ProductSchema.js";
 import { eq } from "drizzle-orm";
 import _ from 'lodash'
 

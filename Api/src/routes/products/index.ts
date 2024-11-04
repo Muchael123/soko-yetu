@@ -5,17 +5,14 @@ import {
   DeleteProduct,
   ListProducts,
   ViewProductById,
-} from "./ProductControllers";
-import { validateData } from '@/middlewares/ValidationMiddleware';
+} from "./ProductControllers.js";
+import { validateData } from '../../middlewares/ValidationMiddleware.js';
 
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { CreateProductSchema, ProductsTable, UpdateProductSchema } from '@/db/ProductSchema';
-import { verifySeller, verifyToken } from '@/middlewares/AuthMiddleware';
+import { CreateProductSchema, ProductsTable, UpdateProductSchema } from '../../db/ProductSchema.js';
+import { verifySeller, verifyToken } from '../../middlewares/AuthMiddleware.js';
 
 const router = Router()
-
-
-
 
 router.get('/', ListProducts)
 router.get("/:id", ViewProductById);
